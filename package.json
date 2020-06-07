@@ -1,0 +1,24 @@
+{
+  "name": "ultisnips.io",
+  "version": "0.1.0",
+  "description": "Generate & Analyze UltiSnips snippets",
+  "repository": "https://github.com/ewen-lbh/ultisnips.io.git",
+  "author": "Ewen Le Bihan <ewen.lebihan7@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "livescript": "^1.6.0",
+    "nodemon": "^2.0.4",
+    "pug-cli": "^1.0.0-alpha6",
+    "stylus": "^0.54.7"
+  },
+  "scripts": {
+    "build:html": "pug src/index.pug && mv src/index.html dist/index.html",
+    "build:css": "stylus src/styles.styl -o dist/styles.css",
+    "build:js": "lsc -c -o dist/ src/*.ls",
+    "clean": "rm dist/**",
+    "build": "pnpm run clean; concurrently 'pnpm run build:html' 'pnpm run build:css' 'pnpm run build:js'",
+    "dev": "nodemon --watch src --delay 500ms --ext ls,coffee,styl --exec pnpm run build"
+  }
+}
