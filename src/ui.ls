@@ -106,3 +106,44 @@ update-snippet-object = ->
 id \analyze-btn .add-event-listener \click, ->
     snippet <<< (id \result .value |> extract-snippet)
     update-snippet-object()
+
+/*
+Tab stop/code insertion
+*/
+
+insert-at-cursor = (text) ->
+    textarea = id \content
+    if document.selection
+        textarea.focus!
+        sel = document.selection.create-range!
+        sel.text = text
+    else
+        if textarea.selection-start or textarea.selection-start is '0'
+            start-pos = textarea.selection-start
+            end-pos = textarea.selection-end
+            textarea.value = (textarea.value.substring 0, start-pos) + text + textarea.value.substring end-pos, textarea.value.length
+        else
+            textarea.value += text
+    update-result!
+
+id \insert-tabstop .add-event-listener \click, ->
+    it.prevent-default!
+    generate-tabstop (
+        position: id \tabstop-position .value |> parse-int
+        default-value: if id \tabstop-type--default .checked 
+            then id \tabstop-default-text .value
+            else null
+        substitution: if id \tabstop-type--substitution .checked
+            then <[find replace]>.map -> id "tabstop-substitution-#it" .value
+            else null
+    ) |> insert-at-cursor
+    false # To prevent submitting the form
+
+els '[id^=tabstop-substitution]' .for-each -> it.add-event-listener \focus, ->
+    id \tabstop-type--substitution .click!
+    
+id \tabstop-default-text .add-event-listener \focus, ->
+    id \tabstop-type--default .click!
+
+id \tabstop-type--default .add-event-listener \focus, ->
+    

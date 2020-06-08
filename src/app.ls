@@ -119,16 +119,16 @@ generate-snippet = ({priority, post-jump, flags, trigger, name, context, content
     snippet '#trigger' "#name" #flags-string
     #content
     endsnippet
-    """).trim()
+    """).trim!
 
 generate-tabstop = ({ position, default-value, substitution }) ->
-    if position == 0
-        \$0
-    else if default-value
+    if default-value
         "${#position:#default-value}"
     else if substitution and substitution.length == 2
         [search, replace] = substitution.map (v) -> v.replace /(?<!\\)\//g '\\/'
         "${#position/#search/#replace/g}"
+    else if position
+        "$#position"
 
 generate-code-embed = ({language, content}) ->
     switch language

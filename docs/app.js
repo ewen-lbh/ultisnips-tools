@@ -170,15 +170,15 @@
   generateTabstop = function(arg$){
     var position, defaultValue, substitution, ref$, search, replace;
     position = arg$.position, defaultValue = arg$.defaultValue, substitution = arg$.substitution;
-    if (position === 0) {
-      return '$0';
-    } else if (defaultValue) {
+    if (defaultValue) {
       return "${" + position + ":" + defaultValue + "}";
     } else if (substitution && substitution.length === 2) {
       ref$ = substitution.map(function(v){
         return v.replace(/(?<!\\)\//g, '\\/');
       }), search = ref$[0], replace = ref$[1];
       return "${" + position + "/" + search + "/" + replace + "/g}";
+    } else if (position) {
+      return "$" + position;
     }
   };
   generateCodeEmbed = function(arg$){
