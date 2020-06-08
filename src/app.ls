@@ -1,3 +1,5 @@
+c = console.log
+
 get-priority = (line) ->
     pattern = /^priority (\d+)$/
     priority = line.replace pattern, \$1 |> Number
@@ -18,7 +20,7 @@ parse-snippet-line = (line) ->
     { groups } = pattern.exec(line) || { groups: null }
 
     if groups == null
-        return flags: null, trigger: null, name: null
+        return null
 
     return
         flags: groups.flags |> flags-string-to-object
@@ -50,28 +52,69 @@ get-content = (source) ->
     return content-lines.join '\n'
     
 extract-snippet = (source) ->
+    priority = null
+    post-jump = null
+    context = null
+    trigger = ''
+    name = ''
+    flags =
+        b: false, t: false
+        i: false, s: false
+        w: false, m: false
+        r: false, e: false
+        A: false
+    content = ''
+    
+    seen =
+        post-jump: false
+        priority: false
+        context: false
+        snippet-line: false
+        endsnippet: false
+
     for line in source / '\n'
         line .= trim!
-        console.log line
-        priority ||= get-priority line
-        post-jump ||= get-post-jump line
-        { flags, trigger, name } ||= parse-snippet-line line
-        context ||= get-context line
+        if line == 'endsnippet'
+            break
+        if not seen.snippet-line and parse-snippet-line(line) != null
+            # other directives must be set before the snippet line so mark everything else as seen too
+            seen.post-jump = seen.priority = seen.context = seen.snippet-line = true
+            { trigger, name, flags } = parse-snippet-line line
+        else if not seen.priority and get-priority(line) != null
+            priority = get-priority line
+            seen.priority = true
+        else if not seen.context and get-context(line) != null
+            context = get-context line
+            seen.context = true
+        else if not seen.post-jump and get-post-jump(line) != null
+            post-jump = get-post-jump 
+            seen.post-jump = true
+            
     
     content = get-content source
-    
-    return { priority, post-jump, flags, trigger, name, context, content }
+    snippet = {priority, post-jump, flags, trigger, name, context, content}
+    c \parsed, snippet
+    return snippet
+
+escape-quotes = (string) ->
+    string.replace /(?<!\\)"/g, '\\\"'
 
 generate-snippet = ({priority, post-jump, flags, trigger, name, context, content}) ->
-    prority-string = if priority != null then "prority #priority\n" else ''
-    context-string = if context != null then "context #context\n" else ''
-    post-jump-string = if post-jump != null then "post_jump #post-jump\n" else ''
+    priority-string = if priority != null 
+        then "priority #priority\n" 
+        else ''
+    context-string = if context != null
+        then "context \"#{context |> escape-quotes}\"\n"
+        else ''
+    post-jump-string = if post-jump != null
+        then "post_jump \"#{post-jump |> escape-quotes}\"\n"
+        else ''
     flags-string = Object.entries(flags)
         .filter(([k, v]) -> v) # Filter by value (is the flag present?)
         .map(([k,v]) -> k) # Map by key (get the flag name, not true or false)
         .join('') # Join into a string ([\w, \r] -> \wr )
     
-    (prority-string + context-string + post-jump-string +
+    (priority-string + context-string + post-jump-string +
     """
     snippet '#trigger' "#name" #flags-string
     #content
