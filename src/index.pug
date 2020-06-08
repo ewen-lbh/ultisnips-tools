@@ -2,7 +2,7 @@ extends layout.pug
 
 block main
   h2 New snippet
-  
+
   form#snippet(method="get")._stacked
     //- ------------------------- 
     //- "PREAMBLE" INPUTS
@@ -15,40 +15,40 @@ block main
         ._packed
           label(for="trigger") Trigger
           .switch._leftspacer
-            input#trigger-type--text(checked type="radio", name="trigger-type" value="text")
+            input#trigger-type--text(checked type="radio" name="trigger-type" value="text")
             label(for="trigger-type--text") Text
-            
-            input#trigger-type--regex(type="radio", name="trigger-type" value="regex")
+
+            input#trigger-type--regex(type="radio" name="trigger-type" value="regex")
             label(for="trigger-type--regex") Regex
           .key-hint
             | r
         input#trigger(type="text")
-    
+
     section._grid.flags-inputs
       ._stacked
         ._packed
-          input#flag-i(type="checkbox", name="flag-i")
+          input#flag-i(type="checkbox" name="flag-i")
           label(for="flag-i") In-word expansion
           .key-hint._leftspacer i
         p.explanation
           | Expand even if the character before the cursor is not a space
-      
+
       ._stacked
         ._packed
-          input#flag-A(type="checkbox", name="flag-A")
+          input#flag-A(type="checkbox" name="flag-A")
           label(for="flag-A") Expand automatically
           .key-hint._leftspacer A
         p.explanation
           | Expand as soon as you type the trigger, no need to press #[kbd Tab]
-      
+
       ._stacked
         ._packed
-          input#flag-b(type="checkbox", name="flag-b")
+          input#flag-b(type="checkbox" name="flag-b")
           label(for="flag-b") Beginning of line
           .key-hint._leftspacer b
         p.explanation
           | Only expand if the characters before the cursor are only spaces
-      
+
     //- ------------------------- 
     //- "CONTENT" INPUTS
     //- ------------------------
@@ -58,31 +58,31 @@ block main
           | Content
           span.explanation._leftspacer
             | Please use “\” before any of the special characters to insert them literaly: \, $, `, {
-        textarea#content(name="content", cols="30", rows="10")
-      
+        textarea#content(name="content" cols="30" rows="10")
+
       ._stacked._tabbed(data-current-tab-controller="current-tab")
         ._tabs._packed
-            input#tab--add-tab-stops(checked type="radio", name="current-tab" value="add-tab-stops")
-            label(for="tab--add-tab-stops") Add tab stops
-            input#tab--add-code(type="radio", name="current-tab" value="add-code")
-            label(for="tab--add-code") Add code
-        
+          input#tab--add-tab-stops(checked type="radio" name="current-tab" value="add-tab-stops")
+          label(for="tab--add-tab-stops") Add tab stops
+          input#tab--add-code(type="radio" name="current-tab" value="add-code")
+          label(for="tab--add-code") Add code
+
         ._stacked(data-tab="add-tab-stops")
           ._radio
-            input#tabstop-type--position(checked type="radio", name="tabstop-type" value="position")
+            input#tabstop-type--position(checked type="radio" name="tabstop-type" value="position")
             label(for="tabstop-type--position") Just a tabstop
-          
+
           ._stacked
             ._packed._toggler._radio
-              input#tabstop-type--default(type="radio", name="tabstop-type" value="default")
+              input#tabstop-type--default(type="radio" name="tabstop-type" value="default")
               label(for="tabstop-type--default") With a default text
             label._stacked
               | Pre-fill with…
               input#tabstop-default-text(type="text")
-          
+
           ._stacked
             ._packed._toggler._radio
-              input#tabstop-type--substitution(type="radio", name="tabstop-type" value="substitution")
+              input#tabstop-type--substitution(type="radio" name="tabstop-type" value="substitution")
               label(for="tabstop-type--substitution") With substitution
             .grouped-inputs._packed
               label._stacked
@@ -93,55 +93,55 @@ block main
                   span With…
                   a._leftspacer(href="https://github.com/SirVer/ultisnips/blob/e83c82099d9bd43dc7895e3cb5b114ee5a2a07c6/doc/UltiSnips.txt#L1256") learn more
                 input#tabstop-substitution-replace(type="text")
-            
-          p Access on the #[input#tabstop-position(type="number")]nth #[kbd Tab] press
-          
-          button#insert-tabstop Insert tab stop
-          
+
+          p Access on the #[input#tabstop-position(type="number" minimum="0")]th #[kbd Tab] press
+
+          button(type="button")#insert-tabstop Insert tab stop
+
         ._stacked(data-tab="add-code")
-          
+
           section(data-if="not-in-code")
             p Insert code
             ._packed
-              button#insert-code-python Python
-              button#insert-code-vimscript VimScript
-              button#insert-code-shell Shell
-          
+              button(type="button")#insert-code-python Python
+              button(type="button")#insert-code-vimscript VimScript
+              button(type="button")#insert-code-shell Shell
+
           section(data-if="in-python-code")
             p Get a tabstop value
             ._packed
-              span Tabstop ##[input#tabstop-reference-position(type="number")]
-              button#insert-tabstop-reference Insert
-          
+              span Tabstop ##[input#tabstop-reference-position(type="number" minimum="0")]
+              button(type="button")#insert-tabstop-reference Insert
+
           section(data-if="in-python-code and trigger-type-is-regex")
             p Get a regex trigger's group
             ._packed
-              span Group ##[input#trigger-regex-group-reference(type="number")]
-              button#insert-trigger-regex-group-reference Insert
+              span Group ##[input#trigger-regex-group-reference(type="number" minimum="0")]
+              button(type="button")#insert-trigger-regex-group-reference Insert
     //- ------------------------- 
     //- 'DIRECTIVES' INPUTS
     //- ------------------------
     section.directives-inputs._packed
       label._stacked
         | Priority
-        input#priority(type="number", name="priority")
-      
+        input#priority(type="number" name="priority" minimum="0")
+
       label._stacked
         | Post-jump
-        input#post-jump(type="text", name="post-jump")
-        
+        input#post-jump(type="text" name="post-jump")
+
       label._stacked
         | Context
-        input#context(type="text", name="context")
-    
+        input#context(type="text" name="context")
+
   //- ------------------------- 
   //- OUTPUT
   //- ------------------------
   section.output._stacked#analyze
     label._stacked
       | Result
-      textarea#result(name="result", cols="30", rows="10")
-    
+      textarea#result(name="result" cols="30" rows="10")
+
     ._packed#output-buttons
       button#copy-result Copy result
       button#analyze-btn Analyze
