@@ -104,6 +104,7 @@
     ['priority', 'name', 'trigger', 'content', 'context'].forEach(function(it){
       return bindToSnippetProperty(it);
     });
+    bindToSnippetProperty('post-jump', 'postJump');
     id('trigger-type--regex').checked = snippet.flags.r;
     id('trigger-type--text').checked = !snippet.flags.r;
     return ['b', 'i', 'A'].forEach(function(it){

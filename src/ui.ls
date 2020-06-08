@@ -95,6 +95,7 @@ update-snippet-object = ->
 
     # Handle priority, name, trigger and context
     <[priority name trigger content context]>.for-each -> bind-to-snippet-property(it)
+    bind-to-snippet-property 'post-jump', 'postJump'
     
     id \trigger-type--regex .checked = snippet.flags.r
     id \trigger-type--text .checked = not snippet.flags.r
