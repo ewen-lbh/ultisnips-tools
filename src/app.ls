@@ -49,7 +49,7 @@ get-content = (source) ->
 
     return content-lines.join '\n'
     
-extract = (source) ->
+extract-snippet = (source) ->
     for line in source / '\n'
         line .= trim!
         console.log line
@@ -62,7 +62,7 @@ extract = (source) ->
     
     return { priority, post-jump, flags, trigger, name, context, content }
 
-generate = ({priority, post-jump, flags, trigger, name, context, content}) ->
+generate-snippet = ({priority, post-jump, flags, trigger, name, context, content}) ->
     prority-string = if priority != null then "prority #priority\n" else ''
     context-string = if context != null then "context #context\n" else ''
     post-jump-string = if post-jump != null then "post_jump #post-jump\n" else ''
@@ -78,7 +78,56 @@ generate = ({priority, post-jump, flags, trigger, name, context, content}) ->
     endsnippet
     """).trim()
 
-window{generate, extract} = {generate, extract}
+generate-tabstop = ({ position, default-value, substitution }) ->
+    if position == 0
+        \$0
+    else if default-value
+        "${#position:#default-value}"
+    else if substitution and substitution.length == 2
+        [search, replace] = substitution.map (v) -> v.replace /(?<!\\)\//g '\\/'
+        "${#position/#search/#replace/g}"
+
+generate-code-embed = ({language, content}) ->
+    switch language
+    case \shell then 
+        """`
+        #content
+        `"""
+    case \python then 
+        """`!p
+        #content
+        `"""
+    case \vimscript then
+        """`!v
+        #content
+        `"""
+    default
+        null
+
+generate-tabstop-reference = ({ language, position }) ->
+    switch language
+    case \python then
+        "t[#position}]"
+    default
+        null
+
+generate-content-assignement = ({ language }) ->
+    switch language
+    case \python then
+        'snip.rv = '
+    default
+        null
+
+generate-trigger-regex-group-reference = ({ language, position }) ->
+    switch language
+    case \python then
+        "match.group(#position)"
+    default
+        null
+    
+
+if typeof window != \undefined
+    window <<< {generate-snippet, extract-snippet, generate-tabstop, generate-trigger-regex-group-reference, generate-content-assignement}
 
 /*TESTING
 original = '''
@@ -94,8 +143,8 @@ snip.rv = eval('latex(' + match.group(1).replace('\\', '').replace('^', '**').re
 `
 endsnippet
 '''
-snippet = extract original
-generated = generate snippet
+snippet = extract-snippet original
+generated = generate-snippet snippet
 
 sep = -> console.log '-' * 46
 console.log original
@@ -103,4 +152,10 @@ sep()
 console.log snippet
 sep()
 console.log generated
+
+generate-tabstop(
+    position: 2
+    default-value: null
+    substitution: ['this:\\/\\/url', 'hey-hey!!!/']
+) |> console.log
 */

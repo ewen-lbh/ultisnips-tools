@@ -4,5 +4,14 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title UltiSnips.io
+        link(rel="stylesheet", href="style.css")
     body
-        block body
+        nav._packed
+            h1 ultisnips.io
+            button.secondary#create Create
+            button.secondary#analyze Analyze
+            a(href="https://github.com/ewen-lbh") Created by ewen-lbh
+        main
+            block main
+        script(src="app.js")
+        script(src="ui.js")

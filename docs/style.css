@@ -1,0 +1,23 @@
+:root {
+  --prim: #ff6978;
+  --sec: #9ebdc7;
+  --ter: #4a565b;
+  --qua: #2b3033;
+  --back: #0b090b;
+}
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  font-size: 18px;
+}
+[data-tab]:not([data-tab-active]) {
+  display: none;
+}
+._packed {
+  display: flex;
+  flex-direction: row;
+}
+._stacked {
+  display: flex;
+  flex-direction: column;
+}
