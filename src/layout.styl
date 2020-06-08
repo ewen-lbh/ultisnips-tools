@@ -1,9 +1,88 @@
 // body
-//     background var(--back)
-//     color var(--sec)
-//     font-family 'Fantasque Sans Mono', sans-serif
+// background var(--back)
+// color var(--sec)
+// font-family 'Fantasque Sans Mono', sans-serif
+nav
+    display: flex
+    align-items: center
+    max-width: 1100px
+    margin: 0 auto
+    background: var(--back)
 
 main
-    max-width 1000px
-    margin 0 auto
-    font-size 18px
+    max-width: 1100px
+    margin: 0 auto
+
+section.naming-inputs
+    max-width: 800px
+    margin: 0 auto
+    margin-bottom: 2em
+    align-items: end
+
+    input#name
+        margin-right: 2em
+
+    label[for=trigger] ~ .switch
+        margin-bottom: 0.5em
+        margin-right: 0.5em
+
+    label[for=trigger] ~ .key-hint
+        margin-bottom: 0.5em
+
+section.flags-inputs
+    max-width: 800px
+    margin: 0 auto
+    grid-gap: 1.5em
+
+    .explanation
+        margin-top: 0.5em
+        margin-left: calc(1.5em + 1em)
+
+    margin-bottom: 3em
+
+section.content-inputs
+    display: grid
+    grid-template-columns: 66% 33%
+    grid-gap: 2em
+
+    [data-tab=add-tab-stops] ._radio
+        margin-top: 1.5em
+        margin-bottom: 0.75em
+
+    [data-tab=add-code]
+        button:not(:first-child)
+            margin-left: 1.5em
+
+        section:not(:first-child)
+            margin-top: 2em
+
+    #content-label
+        align-items: center
+
+    textarea#content
+        resize: none
+        height: 400px
+
+    margin-bottom: 2.5em
+
+section.directives-inputs
+    label:not([for])
+        margin-right: 2em
+
+    margin-bottom: 5em
+
+section.output
+    #output-buttons
+        justify-content: center
+
+    button
+        margin-top: 1em
+
+    button:not(:last-child)
+        margin-right: 1em
+
+    margin-bottom: 4em
+
+footer
+    text-align: center
+    padding: 3em 0

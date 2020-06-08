@@ -7,11 +7,14 @@ html(lang="en")
         link(rel="stylesheet", href="style.css")
     body
         nav._packed
-            h1 ultisnips.io
+            h1 UltiSnips.io
             //- button.secondary#create Create
             //- button.secondary#analyze Analyze
-            a(href="https://github.com/ewen-lbh") Created by ewen-lbh
+            a(href="https://github.com/ewen-lbh")._leftspacer Created by ewen-lbh
         main
             block main
+        footer
+            p Made with #[span._accent &lt;3] by #[a(href="https://ewen.works") ewen-lbh]
+            p Repo available at #[a(href="https://github.com/ewen-lbh/ultisnips.io") ewen-lbh/ultisnips.io]
         script(src="app.js")
         script(src="ui.js")

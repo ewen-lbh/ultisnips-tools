@@ -1,4 +1,6 @@
+@import reset
 @import colors
+@import typography
 @import layout
 @import components
 
@@ -9,3 +11,10 @@
 ._stacked
     display flex
     flex-direction column
+
+._grid
+    display grid
+    grid-template-columns: repeat(2, 1fr)
+
+._leftspacer
+    margin-left auto

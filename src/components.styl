@@ -1,2 +1,159 @@
 [data-tab]:not([data-tab-active])
-    display none
+    display: none
+
+// 
+// Headings
+// 
+h1
+    font-weight: normal
+    color: var(--prim)
+
+h2
+    font-weight: normal
+    font-size: 36px
+    overflow hidden
+h2::after
+    content: ''
+    display: inline-block
+    height: 2px
+    background var(--qua)
+    position: relative
+    vertical-align: middle
+    width: 100%
+    left: 0.5em
+    margin-right: -50%
+
+// h2::after
+// content ''
+// width auto
+// background var(--qua)
+// height 2px
+
+// 
+// Text modifiers
+// 
+.explanation
+    font-size: 14px
+    color: var(--ter)
+
+.key-hint
+    padding: 1px 2px
+    border: 1px solid var(--ter)
+    font-size: 16px
+
+._accent
+    color var(--prim)
+
+// 
+// Inputs (text, textarea & number)
+// 
+
+input, textarea
+    background: transparent
+    border: 2px solid var(--ter)
+    padding: 10px
+
+input[type=text]
+    min-width: 300px
+
+input[type=number]
+    max-width: 4em
+
+
+//
+// Grouped inputs
+//
+
+.grouped-inputs
+    max-width: 100%
+    input
+        min-width: unset
+    input:not(:first-child)
+        margin-left -2px
+
+// 
+// Switch
+// 
+.switch
+    label
+        padding: 2px 10px
+        font-size: 14px
+        color: var(--back)
+        background: var(--ter)
+
+    input[type=radio]
+        display: none
+
+    input[type=radio]:checked + label
+        background: var(--prim)
+        padding: 5px 10px
+
+// 
+// Checkbox
+// 
+input[type=checkbox]
+    display: none
+
+input[type=checkbox] + label
+    display: flex
+    align-items: center
+
+input[type=checkbox] + label::before
+    content: ''
+    margin-right: 0.5em
+    height: 1.5em
+    width: 1.5em
+    background: var(--ter)
+
+input[type=checkbox]:checked + label::before
+    background: var(--prim)
+
+input[type=checkbox]:checked ~ .key-hint
+    color: var(--prim)
+
+// 
+// Radio
+// 
+._radio
+    input[type=radio]
+        display: none
+
+    input[type=radio] + label
+        display: flex
+        align-items: center
+
+    input[type=radio] + label::before
+        content: ''
+        margin-right: 0.5em
+        height: 1.5em
+        width: 1.5em
+        background: var(--ter)
+        border-radius: 100000px
+
+    input[type=radio]:checked + label::before
+        background: var(--prim)
+
+// 
+// Tabs
+// 
+._tabs
+    input[type=radio]
+        display: none
+
+    label
+        color: var(--ter)
+
+    input[type=radio]:checked + label
+        color: var(--sec)
+
+    label:not(:last-child)
+        margin-right: 0.5em
+
+// 
+// Button
+// 
+button
+    background: var(--sec)
+    color: var(--back)
+    padding: 0.5em 1.5em
+    border: none
