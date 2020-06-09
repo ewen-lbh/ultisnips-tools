@@ -69,12 +69,12 @@
       flags: {
         b: id('flag-b').checked,
         i: id('flag-i').checked,
-        w: false,
+        w: snippet.flags.w,
         r: id('trigger-type--regex').checked,
-        t: false,
-        s: false,
-        m: false,
-        e: false,
+        t: snippet.flags.t,
+        s: snippet.flags.s,
+        m: snippet.flags.m,
+        e: snippet.flags.e,
         A: id('flag-A').checked
       },
       content: id('content').value

@@ -64,12 +64,12 @@ update-result = ->
         flags:
             b: id \flag-b .checked
             i: id \flag-i .checked
-            w: false
+            w: snippet.flags.w  # Don't always set to false, as the Analyze function could have set it to true
             r: id \trigger-type--regex .checked
-            t: false
-            s: false
-            m: false
-            e: false
+            t: snippet.flags.t  # Don't always set to false, as the Analyze function could have set it to true
+            s: snippet.flags.s  # Don't always set to false, as the Analyze function could have set it to true
+            m: snippet.flags.m  # Don't always set to false, as the Analyze function could have set it to true
+            e: snippet.flags.e  # Don't always set to false, as the Analyze function could have set it to true
             A: id \flag-A .checked
         content: id \content .value
     
