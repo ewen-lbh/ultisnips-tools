@@ -87,7 +87,7 @@ extract-snippet = (source) ->
             context = get-context line
             seen.context = true
         else if not seen.post-jump and get-post-jump(line) != null
-            post-jump = get-post-jump 
+            post-jump = get-post-jump line
             seen.post-jump = true
             
     
@@ -131,39 +131,36 @@ generate-tabstop = ({ position, default-value, substitution }) ->
         "$#position"
 
 generate-code-embed = ({language, content}) ->
-    switch language
-    case \shell then 
-        """`
-        #content
-        `"""
-    case \python then 
-        """`!p
-        #content
-        `"""
-    case \vimscript then
-        """`!v
-        #content
-        `"""
-    default
-        null
+    tag = switch language
+        | \shell => ''
+        | \python => \!p
+        | \vimscript => \!v
+        default null
+    
+    if tag is null
+        return null
+    
+    """`#tag
+    \t#content
+    `"""
 
 generate-tabstop-reference = ({ language, position }) ->
     switch language
-    case \python then
+    | \python =>
         "t[#position]"
     default
         null
 
 generate-content-assignement = ({ language }) ->
     switch language
-    case \python then
+    | \python =>
         'snip.rv = '
     default
         null
 
 generate-trigger-regex-group-reference = ({ language, position }) ->
     switch language
-    case \python then
+    | \python =>
         "match.group(#position)"
     default
         null

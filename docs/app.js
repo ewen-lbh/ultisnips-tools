@@ -128,7 +128,7 @@
         context = getContext(line);
         seen.context = true;
       } else if (!seen.postJump && getPostJump(line) !== null) {
-        postJump = getPostJump;
+        postJump = getPostJump(line);
         seen.postJump = true;
       }
     }
@@ -182,18 +182,24 @@
     }
   };
   generateCodeEmbed = function(arg$){
-    var language, content;
+    var language, content, tag;
     language = arg$.language, content = arg$.content;
-    switch (language) {
-    case 'shell':
-      return "`\n" + content + "\n`";
-    case 'python':
-      return "`!p\n" + content + "\n`";
-    case 'vimscript':
-      return "`!v\n" + content + "\n`";
-    default:
+    tag = (function(){
+      switch (language) {
+      case 'shell':
+        return '';
+      case 'python':
+        return '!p';
+      case 'vimscript':
+        return '!v';
+      default:
+        return null;
+      }
+    }());
+    if (tag === null) {
       return null;
     }
+    return "`" + tag + "\n\t" + content + "\n`";
   };
   generateTabstopReference = function(arg$){
     var language, position;

@@ -54,36 +54,75 @@ snippet =
         A: false
     content: ''
 
-# Generate snippet and put in to the result <textarea>, only if the result textarea is not focused.
 update-result = ->
+    snippet = 
+        priority: (id \priority .value) or null
+        post-jump: (id \post-jump .value) or null
+        context: (id \context .value) or null
+        trigger: id \trigger .value
+        name: id \name .value
+        flags:
+            b: id \flag-b .checked
+            i: id \flag-i .checked
+            w: false
+            r: id \trigger-type--regex .checked
+            t: false
+            s: false
+            m: false
+            e: false
+            A: id \flag-A .checked
+        content: id \content .value
+    
+    # Generate snippet and put in to the result <textarea>, 
+    # only if the result textarea is not focused.
     if document.focused-element != id \result
-        id \result .value = snippet |> generate-snippet
+        console.group 'Generating snippet'
         c snippet
-    else
-        c 'not updating, focused element is the result.'
-update-result() # Initial call
+        console.group-end!
+        id \result .value = snippet |> generate-snippet
 
-# Binder function
-bind-to-element = (element-id, snippet-property = null) ->
-    c "binding to #element-id"
-    id element-id .add-event-listener \input, ->
-        snippet[snippet-property or element-id] = id element-id .value
-        update-result()
+listen-to-all = ->
+    # Gather elements to listen to
+    listen-to = ids <[
+        priority
+        name
+        trigger
+        content
+        context
+        post-jump
+        trigger-type--regex
+        trigger-type--text
+        flag-i
+        flag-b
+        flag-A
+        insert-tabstop
+        insert-code-python
+        insert-code-vimscript
+        insert-code-shell
+        insert-tabstop-reference
+        insert-trigger-regex-group-reference  
+    ]>
+    
+    # Listen to all of them
+    console.group 'Adding hooks to inputs'
+    listen-to.for-each ->
+        # Determinate the event name
+        if it.tag-name is \BUTTON
+            event-name = \click
+        else if it.tag-name is \INPUT
+            if it.get-attribute(\type) in <[checkbox radio]>
+                event-name = \change
+            else
+                event-name = \input
+        else if it.tag-name is \TEXTAREA
+            event-name = \input
+        
+        c "##{it.id} -> #event-name"
+        it.add-event-listener event-name, update-result
+    console.group-end!
 
-# Handle priority, name, trigger and context
-<[priority name trigger content context]>.for-each (el) -> bind-to-element el
-
-# Handle post-jump
-bind-to-element \post-jump \postJump # snippet.post-jump gets mangled to postJump
-
-# Handle flags
-ids <[trigger-type--regex trigger-type--text]> .for-each -> it.add-event-listener \change, ->
-    snippet.flags.r = id \trigger-type--regex .checked
-    update-result()
-<[b i A]>.for-each (flag) ->
-    id "flag-#flag" .add-event-listener \change, ->
-        snippet.flags[flag] = id "flag-#flag" .checked
-        update-result()
+update-result!
+listen-to-all!
 
 /*
 Snippet parsing
@@ -218,6 +257,7 @@ els '[id^=insert-code-]' .for-each -> it.add-event-listener \click, ->
         language: it.target.id.replace \insert-code-, ''
         content: ''
     ) |> insert-at-cursor
+    snippet.content = id \content .value
 
 /*
 Insert tabstop reference
@@ -229,6 +269,7 @@ id \insert-tabstop-reference .add-event-listener \click, ->
             language: \python
             position: id \tabstop-reference-position .value |> Number
         ) |> insert-at-cursor
+        snippet.content = id \content .value
 
 /*
 Insert trigger regex group reference
@@ -240,6 +281,7 @@ id \insert-trigger-regex-group-reference .add-event-listener \click, ->
             language: \python
             position: id \trigger-regex-group-reference-index .value |> Number
         ) |> insert-at-cursor
+        snippet.content = id \content .value
 
 /*
 Disable Insert trigger regex group reference button when trigger is not regex
