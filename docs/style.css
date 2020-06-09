@@ -156,6 +156,12 @@ textarea {
   border: 2px solid var(--ter);
   padding: 10px;
 }
+input:hover,
+input:focus,
+textarea:hover,
+textarea:focus {
+  background: var(--qua);
+}
 input[type=text] {
   min-width: 300px;
 }
@@ -184,6 +190,9 @@ input[type=number] {
   background: var(--prim);
   padding: 5px 10px;
 }
+.switch input[type=radio]:not(:checked) + label:hover {
+  background: var(--sec);
+}
 input[type=checkbox] {
   display: none;
 }
@@ -204,6 +213,9 @@ input[type=checkbox]:checked + label::before {
 input[type=checkbox]:checked ~ .key-hint {
   color: var(--prim);
 }
+input[type=checkbox]:not(:checked) + label:hover::before {
+  background: var(--sec);
+}
 ._radio input[type=radio] {
   display: none;
 }
@@ -222,6 +234,9 @@ input[type=checkbox]:checked ~ .key-hint {
 ._radio input[type=radio]:checked + label::before {
   background: var(--prim);
 }
+._radio label:hover::before {
+  background: var(--sec);
+}
 ._tabs input[type=radio] {
   display: none;
 }
@@ -234,6 +249,10 @@ input[type=checkbox]:checked ~ .key-hint {
 ._tabs label:not(:last-child) {
   margin-right: 0.5em;
 }
+._tabs label:hover,
+._tabs label:focus {
+  color: var(--prim);
+}
 button {
   background: var(--sec);
   color: var(--back);
@@ -245,7 +264,8 @@ button[disabled] {
   color: var(--sec);
   cursor: not-allowed;
 }
-button:not([disabled]):hover {
+button:not([disabled]):hover,
+button:not([disabled]):focus {
   background: var(--prim);
 }
 ._packed {
