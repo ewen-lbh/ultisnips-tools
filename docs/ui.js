@@ -59,7 +59,6 @@
     content: ''
   };
   updateResult = function(){
-    var snippet;
     snippet = {
       priority: id('priority').value || null,
       postJump: id('post-jump').value || null,

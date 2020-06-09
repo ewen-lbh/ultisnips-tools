@@ -55,7 +55,7 @@ snippet =
     content: ''
 
 update-result = ->
-    snippet = 
+    snippet := 
         priority: (id \priority .value) or null
         post-jump: (id \post-jump .value) or null
         context: (id \context .value) or null
