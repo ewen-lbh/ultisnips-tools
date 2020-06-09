@@ -5,6 +5,7 @@ button {
   color: inherit;
   font-family: inherit;
   font-size: inherit;
+  resize: vertical;
 }
 textarea:hover,
 input:hover {
@@ -87,7 +88,6 @@ section.content-inputs #content-label {
   align-items: center;
 }
 section.content-inputs textarea#content {
-  resize: none;
   height: 400px;
 }
 section.directives-inputs {
