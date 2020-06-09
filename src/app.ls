@@ -123,12 +123,12 @@ generate-snippet = ({priority, post-jump, flags, trigger, name, context, content
 
 generate-tabstop = ({ position, default-value, substitution }) ->
     if default-value
-        "${#position:#default-value}"
+        "${#position:#default-value} "
     else if substitution and substitution.length == 2
         [search, replace] = substitution.map (v) -> v.replace /(?<!\\)\//g '\\/'
-        "${#position/#search/#replace/g}"
+        "${#position/#search/#replace/g} "
     else if position
-        "$#position"
+        "$#position "
 
 generate-code-embed = ({language, content}) ->
     tag = switch language
@@ -147,7 +147,7 @@ generate-code-embed = ({language, content}) ->
 generate-tabstop-reference = ({ language, position }) ->
     switch language
     | \python =>
-        "t[#position]"
+        "t[#position] "
     default
         null
 
@@ -161,7 +161,7 @@ generate-content-assignement = ({ language }) ->
 generate-trigger-regex-group-reference = ({ language, position }) ->
     switch language
     | \python =>
-        "match.group(#position)"
+        "match.group(#position) "
     default
         null
     

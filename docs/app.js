@@ -171,14 +171,14 @@
     var position, defaultValue, substitution, ref$, search, replace;
     position = arg$.position, defaultValue = arg$.defaultValue, substitution = arg$.substitution;
     if (defaultValue) {
-      return "${" + position + ":" + defaultValue + "}";
+      return "${" + position + ":" + defaultValue + "} ";
     } else if (substitution && substitution.length === 2) {
       ref$ = substitution.map(function(v){
         return v.replace(/(?<!\\)\//g, '\\/');
       }), search = ref$[0], replace = ref$[1];
-      return "${" + position + "/" + search + "/" + replace + "/g}";
+      return "${" + position + "/" + search + "/" + replace + "/g} ";
     } else if (position) {
-      return "$" + position;
+      return "$" + position + " ";
     }
   };
   generateCodeEmbed = function(arg$){
@@ -206,7 +206,7 @@
     language = arg$.language, position = arg$.position;
     switch (language) {
     case 'python':
-      return "t[" + position + "]";
+      return "t[" + position + "] ";
     default:
       return null;
     }
@@ -226,7 +226,7 @@
     language = arg$.language, position = arg$.position;
     switch (language) {
     case 'python':
-      return "match.group(" + position + ")";
+      return "match.group(" + position + ") ";
     default:
       return null;
     }
