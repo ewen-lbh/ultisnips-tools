@@ -125,6 +125,7 @@ insert-at-cursor = (text) ->
         else
             textarea.value += text
     update-result!
+    textarea.focus!
 
 id \insert-tabstop .add-event-listener \click, ->
     it.prevent-default!
@@ -139,11 +140,19 @@ id \insert-tabstop .add-event-listener \click, ->
     ) |> insert-at-cursor
     false # To prevent submitting the form
 
+/*
+Check radio button when clicked on relevant fields
+*/
+
 els '[id^=tabstop-substitution]' .for-each -> it.add-event-listener \focus, ->
     id \tabstop-type--substitution .click!
     
 id \tabstop-default-text .add-event-listener \focus, ->
     id \tabstop-type--default .click!
+
+/*
+Disable inputs not relevant to currently-selected tabstop type
+*/
 
 disable-other-inputs = ->
     content-to-toggle = id \tabstop-type--default 
@@ -152,10 +161,8 @@ disable-other-inputs = ->
         .query-selector \._toggled
     
     if id \tabstop-type--default .checked
-        c \disabled \default \rm
         content-to-toggle.class-list.remove \_disabled
     else
-        c \disabled \default \add
         content-to-toggle.class-list.add \_disabled
     
     content-to-toggle = id \tabstop-type--substitution 
@@ -164,12 +171,86 @@ disable-other-inputs = ->
         .query-selector \._toggled
     
     if id \tabstop-type--substitution .checked
-        c \disabled \substitution \rm
         content-to-toggle.class-list.remove \_disabled
     else
-        c \disabled \substitution \add
         content-to-toggle.class-list.add \_disabled
 
 els '[id^=tabstop-type--]' .for-each -> it.add-event-listener \change, disable-other-inputs
 # initial run
 disable-other-inputs()
+
+/*
+Disable insert tabstop button if the tabstop position is empty
+*/
+disable-button = (element-id) ->
+    button = id element-id
+    # Get the explanation
+    why-is-it-disabled = button.dataset.why-disabled
+    # Add disabled attribute
+    button.set-attribute \disabled, ''
+    # Add title, if any
+    if why-is-it-disabled
+        button.set-attribute \title, why-is-it-disabled
+    
+enable-button = (element-id) ->
+    button = id element-id
+    # Remove disabled attribute
+    button.remove-attribute \disabled
+    # Remove title
+    button.remove-attribute \title
+
+disable-insert-tabstop-button = ->
+    # c \tabstop-position \value id \tabstop-position .value
+    if not id \tabstop-position .value
+        disable-button \insert-tabstop
+    else
+        enable-button \insert-tabstop
+
+id \tabstop-position .add-event-listener \input, disable-insert-tabstop-button
+disable-insert-tabstop-button!
+
+/*
+Insert code
+*/
+
+els '[id^=insert-code-]' .for-each -> it.add-event-listener \click, ->
+    generate-code-embed(
+        language: it.target.id.replace \insert-code-, ''
+        content: ''
+    ) |> insert-at-cursor
+
+/*
+Insert tabstop reference
+*/
+
+id \insert-tabstop-reference .add-event-listener \click, ->
+    if id \tabstop-reference-position .value
+        generate-tabstop-reference(
+            language: \python
+            position: id \tabstop-reference-position .value |> Number
+        ) |> insert-at-cursor
+
+/*
+Insert trigger regex group reference
+*/
+
+id \insert-trigger-regex-group-reference .add-event-listener \click, ->
+    if id \trigger-regex-group-reference-index .value
+        generate-trigger-regex-group-reference(
+            language: \python
+            position: id \trigger-regex-group-reference-index .value |> Number
+        ) |> insert-at-cursor
+
+/*
+Disable Insert trigger regex group reference button when trigger is not regex
+*/
+
+disable-insert-trigger-regex-group-button = ->
+    if id \trigger-type--regex .checked
+        enable-button \insert-trigger-regex-group-reference
+    else
+        disable-button \insert-trigger-regex-group-reference
+
+els '[id^=trigger-type--]' .for-each -> 
+    it.add-event-listener \change, disable-insert-trigger-regex-group-button
+disable-insert-trigger-regex-group-button! # initial run

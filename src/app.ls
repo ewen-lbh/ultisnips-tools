@@ -150,7 +150,7 @@ generate-code-embed = ({language, content}) ->
 generate-tabstop-reference = ({ language, position }) ->
     switch language
     case \python then
-        "t[#position}]"
+        "t[#position]"
     default
         null
 
@@ -170,7 +170,15 @@ generate-trigger-regex-group-reference = ({ language, position }) ->
     
 
 if typeof window != \undefined
-    window <<< {generate-snippet, extract-snippet, generate-tabstop, generate-trigger-regex-group-reference, generate-content-assignement}
+    window <<< {
+        generate-snippet
+        extract-snippet
+        generate-tabstop
+        generate-tabstop-reference
+        generate-trigger-regex-group-reference
+        generate-content-assignement
+        generate-code-embed
+    }
 
 /*TESTING
 original = '''

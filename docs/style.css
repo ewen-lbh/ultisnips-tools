@@ -240,6 +240,14 @@ button {
   padding: 0.5em 1.5em;
   border: none;
 }
+button[disabled] {
+  background: repeating-linear-gradient(45deg, var(--qua), var(--qua) 10px, var(--back) 10px, var(--back) 20px);
+  color: var(--sec);
+  cursor: not-allowed;
+}
+button:not([disabled]):hover {
+  background: var(--prim);
+}
 ._packed {
   display: flex;
   flex-direction: row;

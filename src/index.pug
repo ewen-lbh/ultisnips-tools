@@ -96,7 +96,7 @@ block main
 
           p Access on the #[input#tabstop-position(type="number" minimum="0")]th #[kbd Tab] press
 
-          button(type="button")#insert-tabstop Insert tab stop
+          button(type="button" data-why-disabled="Please specify the tabstop position (input just above)")#insert-tabstop Insert tab stop
 
         ._stacked(data-tab="add-code")
 
@@ -116,8 +116,8 @@ block main
           section(data-if="in-python-code and trigger-type-is-regex")
             p Get a regex trigger's group
             ._packed
-              span Group ##[input#trigger-regex-group-reference(type="number" minimum="0")]
-              button(type="button")#insert-trigger-regex-group-reference Insert
+              span Group ##[input#trigger-regex-group-reference-index(type="number" minimum="0")]
+              button(type="button" data-why-disabled="The trigger type is not a regular expression")#insert-trigger-regex-group-reference Insert
     //- ------------------------- 
     //- 'DIRECTIVES' INPUTS
     //- ------------------------

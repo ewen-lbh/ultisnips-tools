@@ -200,7 +200,7 @@
     language = arg$.language, position = arg$.position;
     switch (language) {
     case 'python':
-      return "t[" + position + "}]";
+      return "t[" + position + "]";
     default:
       return null;
     }
@@ -229,8 +229,10 @@
     window.generateSnippet = generateSnippet;
     window.extractSnippet = extractSnippet;
     window.generateTabstop = generateTabstop;
+    window.generateTabstopReference = generateTabstopReference;
     window.generateTriggerRegexGroupReference = generateTriggerRegexGroupReference;
     window.generateContentAssignement = generateContentAssignement;
+    window.generateCodeEmbed = generateCodeEmbed;
   }
   /*TESTING
   original = '''
