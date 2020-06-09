@@ -143,5 +143,5 @@ block main
       textarea#result(name="result" cols="30" rows="10")
 
     ._packed#output-buttons
-      button#copy-result Copy result
+      button#copy-result(data-clipboard-target="#result") Copy result
       button#analyze-btn Analyze

@@ -296,3 +296,8 @@ disable-insert-trigger-regex-group-button = ->
 els '[id^=trigger-type--]' .for-each -> 
     it.add-event-listener \change, disable-insert-trigger-regex-group-button
 disable-insert-trigger-regex-group-button! # initial run
+
+/*
+Copy to clipboard button
+*/
+new ClipboardJS '#copy-result'
