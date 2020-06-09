@@ -11,12 +11,13 @@ h1
 h2
     font-weight: normal
     font-size: 36px
-    overflow hidden
+    overflow: hidden
+
 h2::after
     content: ''
     display: inline-block
     height: 2px
-    background var(--qua)
+    background: var(--qua)
     position: relative
     vertical-align: middle
     width: 100%
@@ -42,15 +43,14 @@ h2::after
     font-size: 16px
 
 ._accent
-    color var(--prim)
+    color: var(--prim)
 
 ._disabled
-    opacity 0.5
+    opacity: 0.5
 
 // 
 // Inputs (text, textarea & number)
 // 
-
 input, textarea
     background: transparent
     border: 2px solid var(--ter)
@@ -62,17 +62,17 @@ input[type=text]
 input[type=number]
     max-width: 4em
 
-
-//
+// 
 // Grouped inputs
-//
-
+// 
 .grouped-inputs
     max-width: 100%
+
     input
         min-width: unset
+
     input:not(:first-child)
-        margin-left -2px
+        margin-left: -2px
 
 // 
 // Switch
