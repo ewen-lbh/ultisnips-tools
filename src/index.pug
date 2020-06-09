@@ -76,7 +76,7 @@ block main
             ._packed._toggler._radio
               input#tabstop-type--default(type="radio" name="tabstop-type" value="default")
               label(for="tabstop-type--default") With a default text
-            label._stacked
+            label._stacked._toggled
               | Pre-fill with…
               input#tabstop-default-text(type="text")
 
@@ -84,7 +84,7 @@ block main
             ._packed._toggler._radio
               input#tabstop-type--substitution(type="radio" name="tabstop-type" value="substitution")
               label(for="tabstop-type--substitution") With substitution
-            .grouped-inputs._packed
+            .grouped-inputs._packed._toggled
               label._stacked
                 | Replace…
                 input#tabstop-substitution-find(type="text")

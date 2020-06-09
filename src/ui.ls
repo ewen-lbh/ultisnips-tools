@@ -145,5 +145,31 @@ els '[id^=tabstop-substitution]' .for-each -> it.add-event-listener \focus, ->
 id \tabstop-default-text .add-event-listener \focus, ->
     id \tabstop-type--default .click!
 
-id \tabstop-type--default .add-event-listener \focus, ->
+disable-other-inputs = ->
+    content-to-toggle = id \tabstop-type--default 
+        .parent-element
+        .parent-element
+        .query-selector \._toggled
     
+    if id \tabstop-type--default .checked
+        c \disabled \default \rm
+        content-to-toggle.class-list.remove \_disabled
+    else
+        c \disabled \default \add
+        content-to-toggle.class-list.add \_disabled
+    
+    content-to-toggle = id \tabstop-type--substitution 
+        .parent-element
+        .parent-element
+        .query-selector \._toggled
+    
+    if id \tabstop-type--substitution .checked
+        c \disabled \substitution \rm
+        content-to-toggle.class-list.remove \_disabled
+    else
+        c \disabled \substitution \add
+        content-to-toggle.class-list.add \_disabled
+
+els '[id^=tabstop-type--]' .for-each -> it.add-event-listener \change, disable-other-inputs
+# initial run
+disable-other-inputs()
