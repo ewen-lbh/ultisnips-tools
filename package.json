@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build:html": "pug src/index.pug && mv src/index.html docs/index.html",
-    "build:css": "stylus src/style.styl -o docs/style.css",
+    "build:css": "stylus --compress --sourcemap src/style.styl -o docs/style.css",
     "build:js": "lsc -c -o docs/ src/*.ls",
     "clean": "rm docs/**",
     "build": "concurrently 'pnpm run build:html' 'pnpm run build:css' 'pnpm run build:js'",
