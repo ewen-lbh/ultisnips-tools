@@ -104,7 +104,7 @@ listen-to-all = ->
     ]>
     
     # Listen to all of them
-    console.group 'Adding hooks to inputs'
+    console.group 'Hooking into inputs\' events'
     listen-to.for-each ->
         # Determinate the event name
         if it.tag-name is \BUTTON
@@ -117,7 +117,7 @@ listen-to-all = ->
         else if it.tag-name is \TEXTAREA
             event-name = \input
         
-        c "##{it.id} -> #event-name"
+        c "#event-name @ ##{it.id}"
         it.add-event-listener event-name, update-result
     console.group-end!
 
@@ -168,7 +168,7 @@ insert-at-cursor = (text) ->
 
 id \insert-tabstop .add-event-listener \click, ->
     it.prevent-default!
-    generate-tabstop (
+    generate-tabstop do
         position: id \tabstop-position .value |> parse-int
         default-value: if id \tabstop-type--default .checked 
             then id \tabstop-default-text .value
@@ -176,7 +176,7 @@ id \insert-tabstop .add-event-listener \click, ->
         substitution: if id \tabstop-type--substitution .checked
             then <[find replace]>.map -> id "tabstop-substitution-#it" .value
             else null
-    ) |> insert-at-cursor
+    |> insert-at-cursor
     false # To prevent submitting the form
 
 /*
@@ -253,10 +253,10 @@ Insert code
 */
 
 els '[id^=insert-code-]' .for-each -> it.add-event-listener \click, ->
-    generate-code-embed(
+    generate-code-embed do
         language: it.target.id.replace \insert-code-, ''
         content: ''
-    ) |> insert-at-cursor
+    |> insert-at-cursor
     snippet.content = id \content .value
 
 /*
@@ -265,10 +265,10 @@ Insert tabstop reference
 
 id \insert-tabstop-reference .add-event-listener \click, ->
     if id \tabstop-reference-position .value
-        generate-tabstop-reference(
+        generate-tabstop-reference do
             language: \python
             position: id \tabstop-reference-position .value |> Number
-        ) |> insert-at-cursor
+        |> insert-at-cursor
         snippet.content = id \content .value
 
 /*
@@ -277,10 +277,10 @@ Insert trigger regex group reference
 
 id \insert-trigger-regex-group-reference .add-event-listener \click, ->
     if id \trigger-regex-group-reference-index .value
-        generate-trigger-regex-group-reference(
+        generate-trigger-regex-group-reference do
             language: \python
             position: id \trigger-regex-group-reference-index .value |> Number
-        ) |> insert-at-cursor
+        |> insert-at-cursor
         snippet.content = id \content .value
 
 /*

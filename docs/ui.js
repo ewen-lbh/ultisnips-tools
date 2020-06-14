@@ -89,7 +89,7 @@
   listenToAll = function(){
     var listenTo;
     listenTo = ids(['priority', 'name', 'trigger', 'content', 'context', 'post-jump', 'trigger-type--regex', 'trigger-type--text', 'flag-i', 'flag-b', 'flag-A', 'insert-tabstop', 'insert-code-python', 'insert-code-vimscript', 'insert-code-shell', 'insert-tabstop-reference', 'insert-trigger-regex-group-reference']);
-    console.group('Adding hooks to inputs');
+    console.group('Hooking into inputs\' events');
     listenTo.forEach(function(it){
       var eventName, ref$;
       if (it.tagName === 'BUTTON') {
@@ -103,7 +103,7 @@
       } else if (it.tagName === 'TEXTAREA') {
         eventName = 'input';
       }
-      c("#" + it.id + " -> " + eventName);
+      c(eventName + " @ #" + it.id);
       return it.addEventListener(eventName, updateResult);
     });
     return console.groupEnd();
