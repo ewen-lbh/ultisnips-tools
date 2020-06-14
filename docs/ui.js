@@ -317,6 +317,18 @@
       }
     }
   };
+  /*
+  Result <textarea> position
+  */
+  els('[name=result-position]').forEach(function(it){
+    return it.addEventListener('change', function(it){
+      var val;
+      val = it.target.value;
+      if (it.target.checked) {
+        return id('analyze').dataset.position = val;
+      }
+    });
+  });
   function import$(obj, src){
     var own = {}.hasOwnProperty;
     for (var key in src) if (own.call(src, key)) obj[key] = src[key];

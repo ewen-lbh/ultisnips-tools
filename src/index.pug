@@ -137,9 +137,28 @@ block main
   //- ------------------------- 
   //- OUTPUT
   //- ------------------------
-  section.output._stacked#analyze
+  section.output._stacked#analyze(data-position="in-page")
     label._stacked
-      | Result
+      ._packed
+        span Result
+        .switch._leftspacer
+          input#result-position--in-page(checked type="radio" name="result-position" value="in-page")
+          label(
+            for="result-position--in-page"
+            title="Put the result box in the page (default)"
+          ) []
+
+          input#result-position--anchor-right(type="radio" name="result-position" value="anchor-right")
+          label(
+            for="result-position--anchor-right"
+            title="Anchor the result box to the right side"
+          ) [→
+          
+          input#result-position--anchor-bottom(type="radio" name="result-position" value="anchor-bottom")
+          label(
+            for="result-position--anchor-bottom"
+            title="Anchor the result box to the bottom"
+          ) [↓
       textarea#result(name="result" cols="30" rows="10")
 
     ._packed#output-buttons

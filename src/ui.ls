@@ -320,3 +320,13 @@ ordinal-suffix = (int) ->
         | 2 => \nd
         | 3 => \rd
         default \th
+
+/*
+Result <textarea> position
+*/
+
+els '[name=result-position]' .for-each ->
+    it.add-event-listener \change, ->
+        val = it.target.value
+        if it.target.checked
+            id \analyze .dataset.position = val
