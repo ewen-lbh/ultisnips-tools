@@ -42,6 +42,15 @@ h2::after
     border: 1px solid var(--ter)
     font-size: 16px
 
+kbd
+    font-family inherit
+kbd::before
+    content '<'
+    opacity 0.5
+kbd::after
+    content '>'
+    opacity 0.5
+
 ._accent
     color: var(--prim)
 
