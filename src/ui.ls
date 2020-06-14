@@ -301,3 +301,22 @@ disable-insert-trigger-regex-group-button! # initial run
 Copy to clipboard button
 */
 new ClipboardJS '#copy-result'
+
+/*
+Make "Acess on the <input type=number>th <Tab> press"'s "th" reactive
+*/
+els '.ordinal[data-source]' .for-each ->
+    target-element = it
+    source-element = el it.dataset.source
+    source-element.add-event-listener \input, ->
+        target-element.text-content = ordinal-suffix Number source-element.value
+
+ordinal-suffix = (int) ->
+    if 10 < int < 20
+        \th
+    else
+        switch (int |> String).slice -1 |> Number
+        | 1 => \st
+        | 2 => \nd
+        | 3 => \rd
+        default \th
