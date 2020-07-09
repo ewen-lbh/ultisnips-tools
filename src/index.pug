@@ -48,6 +48,9 @@ block main
           .key-hint._leftspacer b
         p.explanation
           | Only expand if the characters before the cursor are only spaces
+      
+      ._stacked.other-flags
+        p See #[a(href="https://github.com/SirVer/ultisnips/blob/e83c82099d9bd43dc7895e3cb5b114ee5a2a07c6/doc/UltiSnips.txt#L623") the documentation] for other flags
 
     //- ------------------------- 
     //- "CONTENT" INPUTS
@@ -57,7 +60,7 @@ block main
         ._packed#content-label
           | Content
           span.explanation._leftspacer
-            | Please use “\” before any of the special characters to insert them literaly: \, $, `, {
+            | Please use "\$" to insert a "$" literally.
         textarea#content(name="content" cols="30" rows="10")
 
       ._stacked._tabbed(data-current-tab-controller="current-tab")
@@ -127,11 +130,17 @@ block main
         input#priority(type="number" name="priority" min="0")
 
       label._stacked
-        | Post-jump
+        ._packed
+          span Post-jump
+          ._leftspacer
+          a(href="https://github.com/SirVer/ultisnips/blob/e83c82099d9bd43dc7895e3cb5b114ee5a2a07c6/doc/UltiSnips.txt#L1602") learn more
         input#post-jump(type="text" name="post-jump")
 
       label._stacked
-        | Context
+        ._packed
+          span Context
+          ._leftspacer
+          a(href="https://github.com/SirVer/ultisnips/blob/e83c82099d9bd43dc7895e3cb5b114ee5a2a07c6/doc/UltiSnips.txt#L1371") learn more
         input#context(type="text" name="context")
 
   //- ------------------------- 
