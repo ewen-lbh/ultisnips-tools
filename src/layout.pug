@@ -7,6 +7,14 @@ html(lang="en")
         link(rel="stylesheet", href="style.css")
         link(rel="stylesheet", href="fonts/import.css")
     body
+        aside#browser-not-supported
+            h3 Please use Google Chrome or Firefox version 79 or up
+            p 
+                | This website uses some regex features not yet available in your version of Firefox.
+                | (named regex capture groups and lookbehind)
+            p Please see #[a(href="https://github.com/ewen-lbh/ultisnips-tools/issues/9") issue #9] for more details
+            p Firefox 79 isn't released yet? #[a(href="https://www.mozilla.org/fr/firefox/channel/desktop/#beta") Download Firefox Beta]
+            p You currently have #[span(data-key="detectedBrowser")]
         nav._packed
             h1 ultisnips-tool
             //- button.secondary#create Create
@@ -19,4 +27,5 @@ html(lang="en")
             p Repo available at #[a(href="https://github.com/ewen-lbh/ultisnips-tools") ewen-lbh/ultisnips-tools]
         script(src="app.js")
         script(src="vendor/clipboard.min.js")
+        script(src="vendor/uaparser.min.js")
         script(src="ui.js")

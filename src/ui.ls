@@ -342,3 +342,17 @@ id \trigger-type--regex .add-event-listener \input, ->
 id \trigger-type--text .add-event-listener \input, ->
     if id \trigger-type--text .checked
         el 'label[for=trigger] ~ .key-hint' .dataset.state = \off
+
+/*
+Warn about FF<79 (#9)
+*/
+
+uaparser = new UAParser!
+ua = uaparser.get-result!
+if ua.browser.name is \Firefox and +ua.browser.major < 79
+    id \browser-not-supported .style.display = \block
+else
+    id \browser-not-supported .style.display = \none
+
+els 'span[data-key=detectedBrowser]' .for-each ->
+    it.text-content = "#{ua.browser.name} #{ua.browser.version}"

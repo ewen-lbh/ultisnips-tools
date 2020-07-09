@@ -43,13 +43,15 @@ h2::after
     font-size: 16px
 
 kbd
-    font-family inherit
+    font-family: inherit
+
 kbd::before
-    content '<'
-    opacity 0.5
+    content: '<'
+    opacity: 0.5
+
 kbd::after
-    content '>'
-    opacity 0.5
+    content: '>'
+    opacity: 0.5
 
 ._accent
     color: var(--prim)
@@ -198,3 +200,16 @@ button[disabled]
 
 button:not([disabled]):hover, button:not([disabled]):focus
     background: var(--prim)
+
+// 
+// Browser not supported banner
+// 
+aside#browser-not-supported
+    position: fixed
+    left: 0
+    top: 0
+    right: 0
+    text-align: center
+    background: var(--prim)
+    color: var(--qua)
+    z-index: 1000
