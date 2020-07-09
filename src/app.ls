@@ -116,10 +116,15 @@ generate-snippet = ({priority, post-jump, flags, trigger, name, context, content
         # Map by key (get the flag character)
             k
     ) * '' # Join into a string (['a', 'b'] becomes 'ab')
+
+    # Only quote trigger when using regex (#8)
+    trigger-string = if flags.r
+        then "'#trigger'"
+        else trigger
     
     (priority-string + context-string + post-jump-string +
     """
-    snippet '#trigger' "#name" #flags-string
+    snippet #trigger-string "#name" #flags-string
     #content
     endsnippet
     """).trim!

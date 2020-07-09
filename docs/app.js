@@ -150,7 +150,7 @@
     return string.replace(/(?<!\\)"/g, '\\"');
   };
   generateSnippet = function(arg$){
-    var priority, postJump, flags, trigger, name, context, content, priorityString, contextString, postJumpString, flagsString, k, v;
+    var priority, postJump, flags, trigger, name, context, content, priorityString, contextString, postJumpString, flagsString, k, v, triggerString;
     priority = arg$.priority, postJump = arg$.postJump, flags = arg$.flags, trigger = arg$.trigger, name = arg$.name, context = arg$.context, content = arg$.content;
     priorityString = priority !== null ? "priority " + priority + "\n" : '';
     contextString = context !== null ? "context \"" + escapeQuotes(
@@ -171,7 +171,8 @@
         return k;
       }
     }.call(this)).join('');
-    return (priorityString + contextString + postJumpString + ("snippet '" + trigger + "' \"" + name + "\" " + flagsString + "\n" + content + "\nendsnippet")).trim();
+    triggerString = flags.r ? "'" + trigger + "'" : trigger;
+    return (priorityString + contextString + postJumpString + ("snippet " + triggerString + " \"" + name + "\" " + flagsString + "\n" + content + "\nendsnippet")).trim();
   };
   generateTabstop = function(arg$){
     var position, defaultValue, substitution, ref$, search, replace;
