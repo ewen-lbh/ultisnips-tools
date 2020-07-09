@@ -1,5 +1,10 @@
 # ultisnips-tool
-Generate &amp; Analyze UltiSnips snippets
+Provides the following tools for [ultsnips snippets](https://github.com/SirVer/ultisnips):
+
+_(unchecked means not done yet)_
+- [x] Snippet generation
+- [x] Snippet analysis
+- [ ] Snippet conflicts checker
 
 ## Tech stack used
 
