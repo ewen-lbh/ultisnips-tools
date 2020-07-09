@@ -29,6 +29,9 @@ section.naming-inputs
     label[for=trigger] ~ .key-hint
         margin-bottom: 0.5em
 
+    .key-hint[data-state=on]
+        color: var(--prim)
+
 section.flags-inputs
     max-width: 800px
     margin: 0 auto
@@ -81,22 +84,25 @@ section.output
         margin-right: 1em
 
     margin-bottom: 4em
-    
+
     &[data-position^=anchor] textarea
-        position fixed
+        position: fixed
+
         &:not(:hover):not(:focus)
-            background var(--back)
+            background: var(--back)
+
     &[data-position=anchor-bottom] textarea
-        left 0
-        right 0
-        bottom 0
-        width unquote("calc(100vw - 40px)")
+        left: 0
+        right: 0
+        bottom: 0
+        width: unquote('calc(100vw - 40px)')
+
     &[data-position=anchor-right] textarea
-        right 0
-        top 0
-        bottom 0
-        height unquote("calc(100vh - 40px)")
-        resize horizontal
+        right: 0
+        top: 0
+        bottom: 0
+        height: unquote('calc(100vh - 40px)')
+        resize: horizontal
 
 footer
     text-align: center

@@ -330,3 +330,15 @@ els '[name=result-position]' .for-each ->
         val = it.target.value
         if it.target.checked
             id \analyze .dataset.position = val
+
+/*
+Turn the 'r' flag key-hint on/off depending on the trigger type
+(#10)
+*/
+
+id \trigger-type--regex .add-event-listener \input, ->
+    if id \trigger-type--regex .checked
+        el 'label[for=trigger] ~ .key-hint' .dataset.state = \on
+id \trigger-type--text .add-event-listener \input, ->
+    if id \trigger-type--text .checked
+        el 'label[for=trigger] ~ .key-hint' .dataset.state = \off

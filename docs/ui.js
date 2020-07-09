@@ -329,6 +329,20 @@
       }
     });
   });
+  /*
+  Turn the 'r' flag key-hint on/off depending on the trigger type
+  (#10)
+  */
+  id('trigger-type--regex').addEventListener('input', function(){
+    if (id('trigger-type--regex').checked) {
+      return el('label[for=trigger] ~ .key-hint').dataset.state = 'on';
+    }
+  });
+  id('trigger-type--text').addEventListener('input', function(){
+    if (id('trigger-type--text').checked) {
+      return el('label[for=trigger] ~ .key-hint').dataset.state = 'off';
+    }
+  });
   function import$(obj, src){
     var own = {}.hasOwnProperty;
     for (var key in src) if (own.call(src, key)) obj[key] = src[key];
