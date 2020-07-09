@@ -1,8 +1,8 @@
 {
-  "name": "ultisnips-tool",
+  "name": "ultisnips-tools",
   "version": "0.1.0",
   "description": "Generate & Analyze UltiSnips snippets",
-  "repository": "https://github.com/ewen-lbh/ultisnips-tool.git",
+  "repository": "https://github.com/ewen-lbh/ultisnips-tools.git",
   "author": "Ewen Le Bihan <ewen.lebihan7@gmail.com>",
   "license": "MIT",
   "private": true,
