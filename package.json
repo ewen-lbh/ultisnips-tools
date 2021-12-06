@@ -19,6 +19,7 @@
     "build:js": "lsc -c -o docs/ src/*.ls",
     "clean": "rm docs/**",
     "build": "concurrently 'pnpm run build:html' 'pnpm run build:css' 'pnpm run build:js'",
-    "dev": "nodemon --watch src --ext ls,pug,styl --exec pnpm run build"
+    "dev": "nodemon --watch src --ext ls,pug,styl --exec pnpm run build",
+    "deploy": "surge docs/ ultisnips-tools.surge.sh"
   }
 }
