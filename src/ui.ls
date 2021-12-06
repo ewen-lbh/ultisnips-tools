@@ -1,14 +1,14 @@
 # Shortcuts
 c = console.log
-el = document.query-selector.bind document
-els = document.query-selector-all.bind document
+one = document.query-selector.bind document
+all = document.query-selector-all.bind document
 id = document.get-element-by-id.bind document
 ids = -> it.map -> id(it)
 
 /*
 Tab handling
 */
-els \._tabbed .for-each (tabbed-content) ->
+all \._tabbed .for-each (tabbed-content) ->
     { current-tab-controller } = tabbed-content.dataset
     # Store the currently active tab
     active-tab = ''
@@ -144,7 +144,7 @@ update-snippet-object = ->
 
 id \analyze-btn .add-event-listener \click, ->
     snippet <<< (id \result .value |> extract-snippet)
-    update-snippet-object()
+    update-snippet-object!
 
 /*
 Tab stop/code insertion
@@ -183,7 +183,7 @@ id \insert-tabstop .add-event-listener \click, ->
 Check radio button when clicked on relevant fields
 */
 
-els '[id^=tabstop-substitution]' .for-each -> it.add-event-listener \focus, ->
+all '[id^=tabstop-substitution]' .for-each -> it.add-event-listener \focus, ->
     id \tabstop-type--substitution .click!
     
 id \tabstop-default-text .add-event-listener \focus, ->
@@ -214,7 +214,7 @@ disable-other-inputs = ->
     else
         content-to-toggle.class-list.add \_disabled
 
-els '[id^=tabstop-type--]' .for-each -> it.add-event-listener \change, disable-other-inputs
+all '[id^=tabstop-type--]' .for-each -> it.add-event-listener \change, disable-other-inputs
 # initial run
 disable-other-inputs()
 
@@ -252,7 +252,7 @@ disable-insert-tabstop-button!
 Insert code
 */
 
-els '[id^=insert-code-]' .for-each -> it.add-event-listener \click, ->
+all '[id^=insert-code-]' .for-each -> it.add-event-listener \click, ->
     generate-code-embed do
         language: it.target.id.replace \insert-code-, ''
         content: ''
@@ -293,7 +293,7 @@ disable-insert-trigger-regex-group-button = ->
     else
         disable-button \insert-trigger-regex-group-reference
 
-els '[id^=trigger-type--]' .for-each -> 
+all '[id^=trigger-type--]' .for-each -> 
     it.add-event-listener \change, disable-insert-trigger-regex-group-button
 disable-insert-trigger-regex-group-button! # initial run
 
@@ -305,9 +305,9 @@ new ClipboardJS '#copy-result'
 /*
 Make "Acess on the <input type=number>th <Tab> press"'s "th" reactive
 */
-els '.ordinal[data-source]' .for-each ->
+all '.ordinal[data-source]' .for-each ->
     target-element = it
-    source-element = el it.dataset.source
+    source-element = one it.dataset.source
     source-element.add-event-listener \input, ->
         target-element.text-content = ordinal-suffix Number source-element.value
 
@@ -325,7 +325,7 @@ ordinal-suffix = (int) ->
 Result <textarea> position
 */
 
-els '[name=result-position]' .for-each ->
+all '[name=result-position]' .for-each ->
     it.add-event-listener \change, ->
         val = it.target.value
         if it.target.checked
@@ -338,10 +338,10 @@ Turn the 'r' flag key-hint on/off depending on the trigger type
 
 id \trigger-type--regex .add-event-listener \input, ->
     if id \trigger-type--regex .checked
-        el 'label[for=trigger] ~ .key-hint' .dataset.state = \on
+        one 'label[for=trigger] ~ .key-hint' .dataset.state = \on
 id \trigger-type--text .add-event-listener \input, ->
     if id \trigger-type--text .checked
-        el 'label[for=trigger] ~ .key-hint' .dataset.state = \off
+        one 'label[for=trigger] ~ .key-hint' .dataset.state = \off
 
 /*
 Warn about FF<79 (#9)
@@ -349,10 +349,10 @@ Warn about FF<79 (#9)
 
 uaparser = new UAParser!
 ua = uaparser.get-result!
-if ua.browser.name is \Firefox and +ua.browser.major < 79
+if ua.browser.name is \Firefox and Number ua.browser.major < 79
     id \browser-not-supported .style.display = \block
 else
     id \browser-not-supported .style.display = \none
 
-els 'span[data-key=detectedBrowser]' .for-each ->
+all 'span[data-key=detectedBrowser]' .for-each ->
     it.text-content = "#{ua.browser.name} #{ua.browser.version}"
