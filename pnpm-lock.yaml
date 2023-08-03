@@ -167,7 +167,7 @@ packages:
     dependencies:
       babel-runtime: 6.26.0
       esutils: 2.0.3
-      lodash: 4.17.15
+      lodash: 4.17.21
       to-fast-properties: 1.0.3
     dev: true
 
@@ -371,7 +371,7 @@ packages:
     dependencies:
       chalk: 2.4.2
       date-fns: 2.14.0
-      lodash: 4.17.15
+      lodash: 4.17.21
       read-pkg: 4.0.1
       rxjs: 6.5.5
       spawn-command: 0.0.2-1
@@ -877,8 +877,8 @@ packages:
       path-exists: 3.0.0
     dev: true
 
-  /lodash@4.17.15:
-    resolution: {integrity: sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==}
+  /lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
     dev: true
 
   /longest@1.0.1:
